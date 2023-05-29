@@ -307,7 +307,8 @@ class GPT(nn.Module):
         flops_achieved = flops_per_iter * (1.0/dt) # per second
         flops_promised = 312e12 # A100 GPU bfloat16 peak flops is 312 TFLOPS
         mfu = flops_achieved / flops_promised
-        return mfu
+        gflops = flops_achieved/1e9
+        return mfu, gflops
 
     @torch.no_grad()
     def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
